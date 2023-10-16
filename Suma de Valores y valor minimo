@@ -1,0 +1,106 @@
+import java.util.LinkedList;
+import java.util.Queue;
+public class Main {
+ static class Node {
+ Node left;
+ Node right;
+ char value;
+ public Node(char value) {
+ this.value = value;
+ right = null;
+ left = null;
+ }
+ }
+ public static void main(String[] args) throws Exception {
+ Node a = new Node('a');
+ Node b = new Node('b');
+ Node c = new Node('c');
+ Node d = new Node('d');
+ Node e = new Node('e');
+ Node f = new Node('f');
+ Node g = new Node('g');
+ Node h = new Node('h');
+ Node i = new Node('i');
+ Node j = new Node('j');
+ a.left = b;
+ a.right = c;
+ b.left = d;
+ b.right = e;
+ c.right = f;
+ d.left = g;
+ e.left = h;
+ e.right = i;
+ f.right = j;
+ // a
+ // / \
+ // b c
+ // / \ \
+ // d e f
+ // / / \ \
+ // g h i j
+ System.out.println("Toca Preorder\n");
+ Preorder(a);
+ System.out.println("\n");
+ System.out.println("Ahora sigue Inorder\n");
+ Inorder(a);
+ System.out.println("\n");
+ System.out.println("Ahora sigue Postorder\n");
+ Postorder(a);
+ System.out.println("\n");
+ System.out.println("Recorrido nivel por nivel:\n");
+ BFS(a);
+ }
+ public static void Preorder(Node node) {
+ // Desde arriba, izquierda y derecha
+ if (node == null) {
+ return;
+ }
+ // Imprimir el valor del nodo
+ System.out.print(node.value + " ");
+ // Recorrer el subárbol izquierdo
+ Preorder(node.left);
+ // Recorrer el subárbol derecho
+ Preorder(node.right);
+ }
+ public static void Inorder(Node node) {
+ // Priorizar izquierda
+ if (node == null) {
+ return;
+ }
+ // Recorrer el subárbol izquierdo
+ Inorder(node.left);
+ // Imprimir el valor del nodo
+ System.out.print(node.value + " ");
+ // Recorrer el subárbol derecho
+ Inorder(node.right);
+ }
+ public static void Postorder(Node node) {
+ // izquierda, derecha, nodo
+ if (node == null) {
+ return;
+ }
+ // Recorrer el subárbol izquierdo
+ Postorder(node.left);
+ // Recorrer el subárbol derecho
+ Postorder(node.right);
+ // Imprimir el valor del nodo
+ System.out.print(node.value + " ");
+ }
+ public static void BFS(Node node) {
+ if (node == null) {
+ return;
+ }
+ Queue<Node> cola = new LinkedList<>();
+ cola.offer(node);
+ while (!cola.isEmpty()) {
+ Node nodoActual = cola.poll();
+ System.out.print(nodoActual.value + " ");
+ if (nodoActual.left != null) {
+ cola.offer(nodoActual.left);
+ }
+ if (nodoActual.right != null) {
+ cola.offer(nodoActual.right);
+ }
+ }
+ }
+}
